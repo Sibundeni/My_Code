@@ -22,6 +22,8 @@ body {
     color: var(--dark);
     text-align: center;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* Floating hearts */
@@ -32,6 +34,8 @@ body {
     animation: floatUp 6s linear infinite;
     color: white;
     opacity: 0.7;
+    z-index: 1;
+    pointer-events: none;
 }
 
 @keyframes floatUp {
@@ -44,6 +48,7 @@ h1 {
     font-size: 3.5rem;
     margin-top: 60px;
     color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .proposal-box {
@@ -51,7 +56,9 @@ h1 {
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    margin-top: 40px;
+    margin: 40px 20px;
+    position: relative;
+    z-index: 10;
 }
 
 .couple-images {
@@ -80,6 +87,8 @@ h1 {
 .name-label {
     margin-top: 10px;
     font-weight: 600;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .btn-love {
@@ -88,6 +97,7 @@ h1 {
     border-radius: 30px;
     margin: 15px;
     transition: 0.3s ease;
+    font-weight: 600;
 }
 
 .btn-yes {
@@ -98,6 +108,7 @@ h1 {
 
 .btn-yes:hover {
     background-color: #d6336c;
+    transform: scale(1.1);
 }
 
 .btn-no {
@@ -105,12 +116,25 @@ h1 {
     color: white;
     border: none;
     position: relative;
+    transition: all 0.2s;
 }
 
 footer {
     margin-top: 80px;
     padding: 20px;
     color: white;
+    position: relative;
+    z-index: 10;
+}
+
+/* Add a fallback for images */
+.image-fallback {
+    background: linear-gradient(135deg, #ffccd5, #ff8fa3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 48px;
 }
 </style>
 </head>
@@ -132,16 +156,20 @@ for(let i = 0; i < 20; i++){
     <h1>Snenhlanhla 💖</h1>
     <p class="text-white fs-5">From Sandile, with love.</p>
 
-    <!-- Couple Pictures -->
+    <!-- Couple Pictures - FIXED: Using relative paths -->
     <div class="couple-images">
         <div>
-            <img src="/Snenhlanhla.jpeg" alt="Snenhlanhla">
+            <img src="Snenhlanhla.jpeg" 
+                 alt="Snenhlanhla"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMjIwIDIyMCI+PHJlY3Qgd2lkdGg9IjIyMCIgaGVpZ2h0PSIyMjAiIGZpbGw9IiNmZjRkNmQiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiI+U25lbmhsYW5obGE8L3RleHQ+PC9zdmc+'; this.classList.add('image-fallback');">
             <div class="name-label">Snenhlanhla ❤️</div>
         </div>
 
         <div>
-            <img src="/Sandile.jpeg" alt="Sandile">
-            <div class="name-label">sandile 💙</div>
+            <img src="Sandile.jpeg" 
+                 alt="Sandile"
+                 onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMjIwIDIyMCI+PHJlY3Qgd2lkdGg9IjIyMCIgaGVpZ2h0PSIyMjAiIGZpbGw9IiM1OTBkMjIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiI+U2FuZGlsZTwvdGV4dD48L3N2Zz4='; this.classList.add('image-fallback');">
+            <div class="name-label">Sandile 💙</div>
         </div>
     </div>
 
@@ -150,7 +178,7 @@ for(let i = 0; i < 20; i++){
         <p>
             Snenhlanhla, you make my world brighter every single day.  
             Your smile, your energy, your presence — everything about you means so much to me.  
-            I don’t just want moments with you…  
+            I don't just want moments with you…  
             I want something real, something beautiful — with you.
         </p>
 
@@ -169,19 +197,39 @@ for(let i = 0; i < 20; i++){
 function sayYes() {
     document.getElementById("response").innerHTML =
     "Yayyy!!! 💍💕 You just made me the happiest man alive! I can't wait to start this journey with you!";
+    
+    // Add some celebration effect
+    for(let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            let heart = document.createElement("div");
+            heart.innerHTML = "💖";
+            heart.classList.add("heart-float");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            document.body.appendChild(heart);
+        }, i * 200);
+    }
 }
 
 function moveNo() {
     const button = document.querySelector(".btn-no");
-    button.style.position = "absolute";
-    button.style.top = Math.random() * 400 + "px";
-    button.style.left = Math.random() * 400 + "px";
+    const maxX = window.innerWidth - button.offsetWidth;
+    const maxY = window.innerHeight - button.offsetHeight;
+    
+    button.style.position = "fixed";
+    button.style.top = Math.random() * maxY + "px";
+    button.style.left = Math.random() * maxX + "px";
+    button.style.zIndex = "1000";
 }
+
+// Reset button position if window is resized
+window.addEventListener('resize', function() {
+    const button = document.querySelector(".btn-no");
+    button.style.position = "relative";
+    button.style.top = "";
+    button.style.left = "";
+});
 </script>
 
 </body>
 </html>
-
-
-
-
